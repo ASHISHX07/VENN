@@ -1,0 +1,25 @@
+{
+  "name": "01_gateway_node",
+  "version": "1.0.0",
+  "description": "Data import and I/O bound tasks node",
+  "keywords": [
+    "venn",
+    "data",
+    "trading"
+  ],
+  "homepage": "https://github.com/ASHISHX07/VENN#readme",
+  "bugs": {
+    "url": "https://github.com/ASHISHX07/VENN/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHISHX07/VENN.git"
+  },
+  "license": "ISC",
+  "author": "Ashish Sindhav",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  }
+}
