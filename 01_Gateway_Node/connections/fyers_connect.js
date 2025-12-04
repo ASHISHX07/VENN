@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 dotenv.config({path: path.resolve(__dirname, '../../.env')})    // Load .env from the Root Directory
 const authCodeFilePath = path.resolve(__dirname, '../../Data/cache/auth_code.txt');
 const accessTokenFilePath = path.resolve(__dirname, '../../Data/cache/access_token.txt');
-const fyers = new fyersModel({"path": "../Data/logs/account_logs", "enableLogging": true})
+const fyers = new fyersModel({"path": "../Data/logs/login_logs", "enableLogging": true})
 
 function ensureAndRead(filePath) {
     try {

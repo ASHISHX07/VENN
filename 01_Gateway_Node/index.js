@@ -1,6 +1,6 @@
-import { getAuthCodeM, getAccessToken, ensureAndRead } from "./account_info/fyers_connect.js";
-import { readFileSync, writeFileSync } from "node:fs";
-import dotenv from 'dotenv';
+import { getAuthCodeM, getAccessToken, ensureAndRead } from "./connections/fyers_connect.js";
+import getProfileInfo from "./account_info/profile_info.js";
+import { readFileSync } from "node:fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -16,8 +16,6 @@ if(!access_token) {
     await getAccessToken();
     access_token = readFileSync(accessTokenFilePath, 'utf8');
 }
-
 if (!access_token) process.exit(0);
-else {
-    console.log(`all login flow till generating access token automatically is working fine with access_token: ${access_token}`);
-}
+
+getProfileInfo(access_token)
