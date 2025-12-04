@@ -1,4 +1,4 @@
 node_modules
-account_logs
+logs
 .env
 cache

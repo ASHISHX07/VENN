@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { setTimeout } from 'timers/promises';
-import { readFileSync, writeFileSync } from "node:fs"
+import { existsSync, mkdirSync, readFileSync, writeFileSync, } from "node:fs"
 
 // Recreating __dirname (Because it doesn't exist in ESM) note: use CommonJS for backwards compatibility or if you're using fyer's official code guide as of fyers-api-v3 version 1.4.2
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -11,6 +11,23 @@ dotenv.config({path: path.resolve(__dirname, '../../.env')})    // Load .env fro
 const authCodeFilePath = path.resolve(__dirname, '../../Data/cache/auth_code.txt');
 const accessTokenFilePath = path.resolve(__dirname, '../../Data/cache/access_token.txt');
 const fyers = new fyersModel({"path": "../Data/logs/account_logs", "enableLogging": true})
+
+function ensureAndRead(filePath) {
+    try {
+        return readFileSync(filePath, 'utf8').trim();
+    }
+    catch (error) {
+        if (error.code == 'ENOENT') {
+            const folderPath = path.dirname(filePath)
+            if(!existsSync(folderPath)) {
+                mkdirSync(folderPath, {recursive: true});
+            }
+            writeFileSync(filePath, "", 'utf8');
+            return "";
+        }
+        else throw new Error("Error occured")
+    }
+}
 
 // getting auth code
 async function getAuthCodeM() {
@@ -21,7 +38,7 @@ async function getAuthCodeM() {
     
     fyers.setAppId(process.env.FYERS_APP_ID);
     fyers.setRedirectUrl(process.env.FYERS_REDIRECT_URL);
-    let url = await fyers.generateAuthCode();
+    let url = fyers.generateAuthCode();
 
     if(!url) {
         throw new Error("error while generating auth code please check environment file path, App id and run again the program\n")
@@ -39,7 +56,7 @@ async function getAccessToken() {
     try {
         while(!authCode) {
             await setTimeout(5000);
-            authCode = readFileSync(authCodeFilePath, 'utf8').trim();            
+            authCode = readFileSync(authCodeFilePath, 'utf8');
             timer += 1;
             if (timer >= 12) break;
         }
@@ -49,22 +66,23 @@ async function getAccessToken() {
 
     const data = {
     "client_id": process.env.FYERS_APP_ID,
-    "secret_key": process.env.FYERS_SECRET,
-    "auth_code": authCode
+    "secret_key": process.env.FYERS_SECRET_ID,
+    "auth_code": authCode,
     }
     
     await fyers.generate_access_token(data).then((response) => {
         if(response.code == 200) {
             fyers.setAccessToken(response.access_token);
             let { access_token } = response;
-            let accessTokenCache = readFileSync(accessTokenFilePath, 'utf8').trim();
+            let accessTokenCache = readFileSync(accessTokenFilePath, 'utf8');
             
             if(!accessTokenCache) {
                 writeFileSync(accessTokenFilePath, access_token, 'utf8');
             }
         }
         else {  // error message handling yet to be made for frontend
-            throw new Error("error occurred while generating access token")
+            throw new Error("error while reading auth code please run the program again")
+            
         }
     })
 }
@@ -72,4 +90,5 @@ async function getAccessToken() {
 export {
     getAuthCodeM,
     getAccessToken,
+    ensureAndRead,
 }
