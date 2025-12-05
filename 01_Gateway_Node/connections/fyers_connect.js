@@ -3,31 +3,16 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { setTimeout } from 'timers/promises';
-import { existsSync, mkdirSync, readFileSync, writeFileSync, } from "node:fs"
+import { readFileSync, writeFileSync } from "node:fs";
+import ensureAndMkdir from '../helpers/ensureAndMkdir.helper.js';
 
 // Recreating __dirname (Because it doesn't exist in ESM) note: use CommonJS for backwards compatibility or if you're using fyer's official code guide as of fyers-api-v3 version 1.4.2
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 dotenv.config({path: path.resolve(__dirname, '../../.env')})    // Load .env from the Root Directory
 const authCodeFilePath = path.resolve(__dirname, '../../Data/cache/auth_code.txt');
 const accessTokenFilePath = path.resolve(__dirname, '../../Data/cache/access_token.txt');
-const fyers = new fyersModel({"path": "../Data/logs/login_logs", "enableLogging": true})
-
-function ensureAndRead(filePath) {
-    try {
-        return readFileSync(filePath, 'utf8').trim();
-    }
-    catch (error) {
-        if (error.code == 'ENOENT') {
-            const folderPath = path.dirname(filePath)
-            if(!existsSync(folderPath)) {
-                mkdirSync(folderPath, {recursive: true});
-            }
-            writeFileSync(filePath, "", 'utf8');
-            return "";
-        }
-        else throw new Error("Error occured")
-    }
-}
+const logDir = path.join(__dirname, '../../Data/logs/login_logs');
+const fyers = new fyersModel({"path": ensureAndMkdir(logDir), "enableLogging": true});
 
 // getting auth code
 async function getAuthCodeM() {
@@ -90,5 +75,4 @@ async function getAccessToken() {
 export {
     getAuthCodeM,
     getAccessToken,
-    ensureAndRead,
 }

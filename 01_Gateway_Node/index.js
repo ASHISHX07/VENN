@@ -1,8 +1,10 @@
-import { getAuthCodeM, getAccessToken, ensureAndRead } from "./connections/fyers_connect.js";
-import getProfileInfo from "./account_info/profile_info.js";
+import { getAuthCodeM, getAccessToken } from "./connections/fyers_connect.js";
+import getProfileInfo from "./account/profile_info.js";
 import { readFileSync } from "node:fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import ensureAndRead from "./helpers/ensureAndRead.helper.js";
+import stockStream from "./data_streams/stock.stream.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const accessTokenFilePath = path.resolve(__dirname, '../Data/cache/access_token.txt');
@@ -16,6 +18,9 @@ if(!access_token) {
     await getAccessToken();
     access_token = readFileSync(accessTokenFilePath, 'utf8');
 }
+
 if (!access_token) process.exit(0);
 
-getProfileInfo(access_token)
+// await getProfileInfo(access_token); // will be used when needed
+
+await stockStream(access_token);
