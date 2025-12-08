@@ -14,10 +14,14 @@ export default async function stockStream(access_token) {
     fyers.setAccessToken(access_token)
     
     setInterval(() => {
-        fyers.getMarketDepth({"symbol":["MCX:SILVERM26FEBFUT"],"ohlcv_flag":1}).then((response)=>{
-            console.log(response.d['MCX:SILVERM26FEBFUT'].ltp)
-        }).catch((err)=>{
-            console.log(err)
+        fyers.getMarketDepth({"symbol":["NSE:NIFTY50-INDEX"],"ohlcv_flag":1})
+        .then(
+            (response)=>{
+            console.log(response.d['NSE:NIFTY50-INDEX'].ltp);
+        })
+        .catch((err)=>{
+            console.log(err);
+            process.exit(0);
         })        
     }, 1000);
 }
