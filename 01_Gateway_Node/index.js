@@ -4,7 +4,6 @@ import { readFileSync } from "node:fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ensureAndRead from "./helpers/ensureAndRead.helper.js";
-import stockStream from "./streams/stock.stream.js";
 // import exampleSocket from "./streams/sockets/example.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,6 +21,6 @@ if(!access_token) {
 
 // await getProfileInfo(access_token); // will be used when needed
 
-await stockStream(access_token);
+// await stockStream(access_token);
 
-// await exampleSocket(access_token)
+
