@@ -20,8 +20,10 @@ export default async function stockStream(access_token) {
             console.log(response.d['NSE:NIFTY50-INDEX'].ltp);
         })
         .catch((err)=>{
-            console.log(err);
-            process.exit(0);
+            if(err.code == -15) {
+                console.log("invalid/outdated access token")
+                process.exit(0);
+            }
         })        
     }, 1000);
 }
