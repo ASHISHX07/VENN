@@ -4,7 +4,8 @@ import { readFileSync } from "node:fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ensureAndRead from "./helpers/ensureAndRead.helper.js";
-import stockStream from "./streams/stock.stream.js"
+import niftyStream from "./streams/sockets/indics/nifty.socket.js";
+// import stockStream from "./streams/stock.stream.js"
 // import exampleSocket from "./streams/sockets/example.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -15,13 +16,13 @@ let access_token = ensureAndRead(accessTokenFilePath);
 
 if(!access_token) {
     ensureAndRead(authCodeFilePath);
-    getAuthCodeM();
+    await getAuthCodeM();
     await getAccessToken();
     access_token = readFileSync(accessTokenFilePath, 'utf8');
 }
 
 // await getProfileInfo(access_token); // will be used when needed
 
-await stockStream(access_token);
+// await stockStream(access_token);
 
-
+await niftyStream(access_token);
