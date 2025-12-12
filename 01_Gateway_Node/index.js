@@ -1,5 +1,5 @@
 import { getAuthCodeM, getAccessToken } from "./connections/fyers_connect.js";
-import getProfileInfo from "./account/profile_info.js";
+// import getProfileInfo from "./account/profile_info.js";
 import { readFileSync } from "node:fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -15,8 +15,10 @@ const authCodeFilePath = path.resolve(__dirname, '../Data/cache/auth_code.txt');
 let access_token = ensureAndRead(accessTokenFilePath);
 
 if(!access_token) {
-    ensureAndRead(authCodeFilePath);
-    await getAuthCodeM();
+    let authCode = ensureAndRead(authCodeFilePath);
+    if(!authCode) {
+        await getAuthCodeM();
+    }
     await getAccessToken();
     access_token = readFileSync(accessTokenFilePath, 'utf8');
 }
@@ -25,4 +27,4 @@ if(!access_token) {
 
 // await stockStream(access_token);
 
-await niftyStream(access_token);
+// await niftyStream(access_token);

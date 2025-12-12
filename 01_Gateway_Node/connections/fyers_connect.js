@@ -9,6 +9,7 @@ import ensureAndMkdir from '../helpers/ensureAndMkdir.helper.js';
 // Recreating __dirname (Because it doesn't exist in ESM) note: use CommonJS for backwards compatibility or if you're using fyer's official code guide as of fyers-api-v3 version 1.4.2
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 dotenv.config({path: path.resolve(__dirname, '../../.env')})    // Load .env from the Root Directory
+
 const authCodeFilePath = path.resolve(__dirname, '../../Data/cache/auth_code.txt');
 const accessTokenFilePath = path.resolve(__dirname, '../../Data/cache/access_token.txt');
 const logDir = path.join(__dirname, '../../Data/logs/login_logs');
@@ -66,8 +67,10 @@ async function getAccessToken() {
             }
         }
         else {  // error message handling yet to be made for frontend
-            throw new Error("error while reading auth code please run the program again")
-            
+            console.log("\nERROR: Invalid or outdated auth code clearing up auth code & access token cache...")
+            writeFileSync(authCodeFilePath, "", 'utf8')
+            writeFileSync(accessTokenFilePath, "", 'utf8')
+            throw new Error("Invalid or outdated authcode cache cleared up please re-run the program")
         }
     })
 }

@@ -14,6 +14,6 @@ export default function ensureAndRead(filePath) {
             writeFileSync(filePath, "", 'utf8');
             return "";
         }
-        else throw new Error("Error occured")
+        else throw new Error(`Error occured while creating ${filePath}`)
     }
 }
