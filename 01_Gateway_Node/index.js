@@ -1,5 +1,5 @@
 import { getAuthCodeM, getAccessToken } from "./connections/fyers_connect.js";
-// import getProfileInfo from "./account/profile_info.js";
+import getProfileInfo from "./account/profile_info.js";
 import { readFileSync } from "node:fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -22,9 +22,13 @@ if(!access_token) {
     await getAccessToken();
     access_token = readFileSync(accessTokenFilePath, 'utf8');
 }
+let validate = await getProfileInfo(access_token, true)
+if(validate) {
+    console.log("\nauthentication done\n")
+}
 
 // await getProfileInfo(access_token); // will be used when needed
 
 // await stockStream(access_token);
 
-// await niftyStream(access_token);
+await niftyStream(access_token);

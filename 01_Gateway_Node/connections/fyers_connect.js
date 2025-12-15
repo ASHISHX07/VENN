@@ -19,7 +19,7 @@ const fyers = new fyersModel({"path": ensureAndMkdir(logDir), "enableLogging": t
 async function getAuthCodeM() {
 
     console.log("Make sure You're logged in with the same fyers account in your browser.");    
-    await setTimeout(2000);
+    await setTimeout(1000);
     console.log("Generating Auth Code....\n");
     
     fyers.setAppId(process.env.FYERS_APP_ID);
@@ -30,7 +30,7 @@ async function getAuthCodeM() {
         throw new Error("error while generating auth code please check environment file path, App id and run again the program\n")
     }
     else {
-        console.log(`SUCCESS: Open the below link to get the auth code and paste it in the rootDir > data > cache > auth_code.txt and wait for few seconds\nNOTE: You have one minute to paste it in the file otehrwise the program will stop executing and you've to run again.\n\n${url}`)
+        console.log(`SUCCESS: Open the below link to get the auth code and paste it in the rootDir > data > cache > auth_code.txt and wait for few seconds\nNOTE: You have one minute to paste it in the file otehrwise the program will stop executing and you've to run again.\n\n${url}\n`)
     }
 }
 
@@ -43,7 +43,7 @@ async function getAccessToken() {
         while(!authCode) {
             await setTimeout(5000);
             authCode = readFileSync(authCodeFilePath, 'utf8');
-            timer += 1;
+            ++timer;
             if (timer >= 12) break;
         }
     } catch (error) {
