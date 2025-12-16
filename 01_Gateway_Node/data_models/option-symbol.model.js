@@ -1,0 +1,4 @@
+class OptionSymbolData {
+    #feedTime
+    #ltp
+}

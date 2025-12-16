@@ -26,14 +26,16 @@ async function getProfileInfo(access_token, checker = false) {
         if(err.code == -8) {
             writeFileSync(accessTokenFilePath, '', 'utf8');
             writeFileSync(authCodeFilePath, '', 'utf8');
-            console.log("Invalid Access Token passed, cleared access token and auth code from cache please rerun the program")
+            console.log("\nInvalid Access Token passed, cleared access token and auth code from cache please rerun the program\n")
         }
-        if(err.code == -352) {
-            console.log("Invalid App ID provided please check you app ID");
+        else if(err.code == -352) {
+            console.log("\nInvalid App ID provided please check you app ID \n");
             process.exit(0);
         }
-        if(err.code == 500) {
-            console.log("Issue from fyers side please check official updates")
+        else if(err.code == 500) {
+            console.log("\nERROR: likely because of invalid access token or from fyers side issue, clearing up cache please rerun the program\nif this issue persists please check official updates from fyers\n")
+            writeFileSync(accessTokenFilePath, '', 'utf8');
+            writeFileSync(authCodeFilePath, '', 'utf8');
             process.exit(0);
         }
         console.log(err);
