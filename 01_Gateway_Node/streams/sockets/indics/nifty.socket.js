@@ -12,7 +12,7 @@ async function niftyStream(access_token) {
     let socket = fyersDataSocket.getInstance(`${process.env.FYERS_APP_ID}:${access_token}`, ensureAndMkdir(logDir), true)
 
     socket.on("connect", function(){
-        socket.subscribe(['NSE:NIFTY25D2325950CE'])
+        socket.subscribe(['NSE:NIFTY50-INDEX'])
         socket.mode(socket.FullMode)
     })
 
@@ -21,11 +21,11 @@ async function niftyStream(access_token) {
     })
 
     socket.on("error",function(message) {
-        console.log("erroris",message);        
+        console.log("erroris",message);
     })
 
     socket.on("close",function() {
-        console.log("socket closed");        
+        console.log("socket closed");
     })
 
     socket.connect()
