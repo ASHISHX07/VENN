@@ -38,8 +38,10 @@ async function getProfileInfo(access_token, checker = false) {
             writeFileSync(authCodeFilePath, '', 'utf8');
             process.exit(0);
         }
-        console.log(err);
-        throw new Error(err);
+        else {
+            console.log(err);
+            throw new Error(err);
+        }
     }
 }
 

@@ -12,7 +12,7 @@ async function niftyStream(access_token) {
     let socket = fyersDataSocket.getInstance(`${process.env.FYERS_APP_ID}:${access_token}`, ensureAndMkdir(logDir), true)
 
     socket.on("connect", function(){
-        socket.subscribe(['NSE:NIFTY50-INDEX'])
+        socket.subscribe(['NSE:NIFTY25D2325950CE'])
         socket.mode(socket.FullMode)
     })
 
