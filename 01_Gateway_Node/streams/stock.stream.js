@@ -9,8 +9,8 @@ dotenv.config({path: path.resolve(__dirname, '../../.env')});    // Load .env fr
 const logDir = path.join(__dirname, '../../Data/logs/stream_logs');
 const fyers = new fyersModel({"path": ensureAndMkdir(logDir), "enableLogging": true});  
 
-export default async function stockStream(access_token) {
-    fyers.setAppId(process.env.FYERS_APP_ID)
+export default async function stockStream(app_id, access_token) {
+    fyers.setAppId(app_id)
     fyers.setAccessToken(access_token)
     
     setInterval(() => {

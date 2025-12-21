@@ -13,8 +13,8 @@ const authCodeFilePath = path.resolve(__dirname, '../../Data/cache/auth_code.txt
 const accessTokenFilePath = path.resolve(__dirname, '../../Data/cache/access_token.txt');
 const fyers = new fyersModel({"path": ensureAndMkdir(logDir), "enableLogging": true});
 
-async function getProfileInfo(access_token, checker = false) {
-    fyers.setAppId(process.env.FYERS_APP_ID)
+async function getProfileInfo(app_id, access_token, checker = false) {
+    fyers.setAppId(app_id)
     fyers.setAccessToken(access_token);
 
     try {
@@ -38,10 +38,8 @@ async function getProfileInfo(access_token, checker = false) {
             writeFileSync(authCodeFilePath, '', 'utf8');
             process.exit(0);
         }
-        else {
-            console.log(err);
-            throw new Error(err);
-        }
+        console.log(err);
+        // throw new Error(err);
     }
 }
 

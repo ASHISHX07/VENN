@@ -8,8 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({path: path.resolve(__dirname, '../../../../.env')});    // Load .env from the Root Directory
 const logDir = path.join(__dirname, '../../../../Data/logs/stream_logs');
 
-async function niftyStream(access_token) {
-    let socket = fyersDataSocket.getInstance(`${process.env.FYERS_APP_ID}:${access_token}`, ensureAndMkdir(logDir), true)
+async function niftyStream(app_id, access_token) {
+    let socket = fyersDataSocket.getInstance(`${app_id}:${access_token}`, ensureAndMkdir(logDir), true)
 
     socket.on("connect", function(){
         socket.subscribe(['NSE:NIFTY50-INDEX'])

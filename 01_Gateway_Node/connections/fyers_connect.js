@@ -16,13 +16,13 @@ const logDir = path.join(__dirname, '../../Data/logs/login_logs');
 const fyers = new fyersModel({"path": ensureAndMkdir(logDir), "enableLogging": true});
 
 // getting auth code
-async function getAuthCodeM() {
+async function getAuthCodeM(app_id) {
 
     console.log("Make sure You're logged in with the same fyers account in your browser.");    
     await setTimeout(1000);
     console.log("Generating Auth Code....\n");
     
-    fyers.setAppId(process.env.FYERS_APP_ID);
+    fyers.setAppId(app_id);
     fyers.setRedirectUrl(process.env.FYERS_REDIRECT_URL);
     let url = fyers.generateAuthCode();
 
@@ -35,7 +35,7 @@ async function getAuthCodeM() {
 }
 
 // generate access token
-async function getAccessToken() {
+async function getAccessToken(app_id) {
     let authCode;
     let timer = 0;
 
@@ -51,7 +51,7 @@ async function getAccessToken() {
     }
 
     const data = {
-    "client_id": process.env.FYERS_APP_ID,
+    "client_id": app_id,
     "secret_key": process.env.FYERS_SECRET_ID,
     "auth_code": authCode,
     }
