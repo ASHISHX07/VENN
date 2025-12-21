@@ -5,8 +5,9 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import ensureAndRead from "./helpers/ensureAndRead.helper.js";
-import marketStatus from "./market/marketStatus.js";
-// import niftyStream from "./streams/sockets/indics/nifty.socket.js";
+// import optionChainStream from "./streams/api-streams/option-chain.stream.js";
+// import marketStatus from "./market/marketStatus.js";
+import niftyStream from "./streams/sockets/indics/nifty.socket.js";
 // import stockStream from "./streams/stock.stream.js"
 // import exampleSocket from "./streams/sockets/example.js";
 
@@ -35,6 +36,8 @@ if(validate) {
 
 // await stockStream(appId, access_token);
 
-// await niftyStream(appId, accessToken);
+await niftyStream(appId, accessToken);
 
-await marketStatus(appId, accessToken, true);
+// await marketStatus(appId, accessToken, true);
+
+// await optionChainStream(appId, accessToken, "NSE:NIFTY25D2325950CE", 2, 4000, true);

@@ -49,14 +49,12 @@ async function getAccessToken(app_id) {
     } catch (error) {
         throw new Error(error);
     }
-
-    const data = {
-    "client_id": app_id,
-    "secret_key": process.env.FYERS_SECRET_ID,
-    "auth_code": authCode,
-    }
     
-    await fyers.generate_access_token(data).then((response) => {
+    await fyers.generate_access_token({
+        "client_id": app_id,
+        "secret_key": process.env.FYERS_SECRET_ID,
+        "auth_code": authCode,
+        }).then((response) => {
         if(response.code == 200) {
             fyers.setAccessToken(response.access_token);
             let { access_token } = response;
