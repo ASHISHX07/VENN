@@ -5,8 +5,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import ensureAndRead from "./helpers/ensureAndRead.helper.js";
-// import marketStatus from "./market/marketStatus.js";
-import niftyStream from "./streams/sockets/indics/nifty.socket.js";
+import marketStatus from "./market/marketStatus.js";
+// import niftyStream from "./streams/sockets/indics/nifty.socket.js";
 // import stockStream from "./streams/stock.stream.js"
 // import exampleSocket from "./streams/sockets/example.js";
 
@@ -35,6 +35,6 @@ if(validate) {
 
 // await stockStream(appId, access_token);
 
-await niftyStream(appId, accessToken);
+// await niftyStream(appId, accessToken);
 
-// await marketStatus(appId, accessToken, true); // logs to the executing directory avoid until fix
+await marketStatus(appId, accessToken, true);

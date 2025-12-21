@@ -1,0 +1,2 @@
+import { fyersModel } from "fyers-api-v3";
+
