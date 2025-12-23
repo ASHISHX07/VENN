@@ -14,11 +14,11 @@ const accessTokenFilePath = path.resolve(__dirname, '../../Data/cache/access_tok
 const fyers = new fyersModel({"path": ensureAndMkdir(logDir), "enableLogging": true});
 
 async function getProfileInfo(app_id, access_token, checker = false) {
-    fyers.setAppId(app_id)
+    fyers.setAppId(app_id);
     fyers.setAccessToken(access_token);
 
     try {
-        const response = await fyers.get_profile()
+        const response = await fyers.get_profile();
         if(checker) return true;
         console.log(response);
     }
@@ -26,21 +26,21 @@ async function getProfileInfo(app_id, access_token, checker = false) {
         if(err.code == -8) {
             writeFileSync(accessTokenFilePath, '', 'utf8');
             writeFileSync(authCodeFilePath, '', 'utf8');
-            console.log("\nInvalid Access Token passed, cleared access token and auth code from cache please rerun the program\n")
+            console.log("\nInvalid Access Token passed, cleared access token and auth code from cache please rerun the program\n");
         }
         else if(err.code == -352) {
             console.log("\nInvalid App ID provided please check you app ID \n");
             process.exit(0);
         }
         else if(err.code == 500) {
-            console.log("\nERROR: likely because of invalid access token or from fyers side issue, clearing up cache please rerun the program\nif this issue persists please check official updates from fyers\n")
+            console.log("\nERROR: likely because of invalid access token or from fyers side issue, clearing up cache please rerun the program\nif this issue persists please check official updates from fyers\n");
             writeFileSync(accessTokenFilePath, '', 'utf8');
             writeFileSync(authCodeFilePath, '', 'utf8');
             process.exit(0);
         }
         console.log(err);
-        // throw new Error(err);
+        throw new Error(err);
     }
 }
 
-export default getProfileInfo
+export default getProfileInfo;

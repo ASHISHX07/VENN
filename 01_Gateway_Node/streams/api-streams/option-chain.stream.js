@@ -15,12 +15,12 @@ async function optionChainStream(app_id, access_token, symbol, strikeCount, inte
     try {
         setInterval(() => {
             let optionData = fyers.getOptionChain({"symbol": symbol, "strikecount": strikeCount, "timestamp": timeStamp});
-            console.log(optionData.data);            
+            console.log(optionData.data);
         }, interval);
     }
     catch (err) {
         console.log(err);
-        throw new Error(err)
+        throw new Error(err);
     }
 }
 
