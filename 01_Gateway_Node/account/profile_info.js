@@ -27,6 +27,7 @@ async function getProfileInfo(app_id, access_token, checker = false) {
             writeFileSync(accessTokenFilePath, '', 'utf8');
             writeFileSync(authCodeFilePath, '', 'utf8');
             console.log("\nInvalid Access Token passed, cleared access token and auth code from cache please rerun the program\n");
+            process.exit(0);
         }
         else if(err.code == -352) {
             console.log("\nInvalid App ID provided please check you app ID \n");

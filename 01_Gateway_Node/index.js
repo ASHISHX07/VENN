@@ -40,4 +40,4 @@ if(validate) {
 
 // await marketStatus(appId, accessToken, true);
 
-await optionChainStream(appId, accessToken, "NSE:NIFTY25D2325950CE", 10, 4000);
+await optionChainStream(appId, accessToken, "NSE:NIFTY25DEC26150CE", 10, 4000);

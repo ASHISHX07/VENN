@@ -1,3 +1,3 @@
-async function int64Buffer(...object) {
-        
+async function float64Buffer(...object) {
+
 }
