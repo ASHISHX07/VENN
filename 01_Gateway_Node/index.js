@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import ensureAndRead from "./helpers/ensureAndRead.helper.js";
 import optionChainStream from "./streams/api-streams/option-chain.stream.js";
 // import marketStatus from "./market/marketStatus.js";
-// import niftyStream from "./streams/sockets/indics/nifty.socket.js";
+import niftyStream from "./streams/sockets/indics/nifty.socket.js";
 // import stockStream from "./streams/stock.stream.js"
 // import exampleSocket from "./streams/sockets/example.js";
 
@@ -36,8 +36,8 @@ if(validate) {
 
 // await stockStream(appId, access_token);
 
-// await niftyStream(appId, accessToken);
+niftyStream(appId, accessToken);
 
 // await marketStatus(appId, accessToken, true);
 
-await optionChainStream(appId, accessToken, "NSE:NIFTY25DEC26150CE", 10, 4000);
+optionChainStream(appId, accessToken, "NSE:NIFTY25DEC26150CE", 1, 4000);

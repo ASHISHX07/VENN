@@ -30,18 +30,18 @@ async function getProfileInfo(app_id, access_token, checker = false) {
             process.exit(0);
         }
         else if(err.code == -352) {
-            console.log("\nInvalid App ID provided please check you app ID \n");
+            console.error("\nInvalid App ID provided please check you app ID \n");
             process.exit(0);
         }
         else if(err.code == 500) {
-            console.log("\nERROR: likely because of invalid access token or from fyers side issue, clearing up cache please rerun the program\nif this issue persists please check official updates from fyers\n");
+            console.error("\nERROR: likely because of invalid access token or from fyers side issue, clearing up cache please rerun the program\nif this issue persists please check official updates from fyers\n");
             writeFileSync(accessTokenFilePath, '', 'utf8');
             writeFileSync(authCodeFilePath, '', 'utf8');
             process.exit(0);
         }
         else {
-            console.log(err);
-            throw new Error(err);
+            console.error(err);
+            process.exit(0);
         }
     }
 }
