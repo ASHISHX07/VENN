@@ -40,4 +40,4 @@ niftyStream(appId, accessToken);
 
 // await marketStatus(appId, accessToken, true);
 
-optionChainStream(appId, accessToken, "NSE:NIFTY25DEC26150CE", 1, 4000);
+optionChainStream(appId, accessToken, "MCX:CRUDEOILM26JAN5300CE", 1, 4000);

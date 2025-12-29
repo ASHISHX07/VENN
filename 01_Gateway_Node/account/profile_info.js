@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import ensureAndMkdir from '../helpers/ensureAndMkdir.helper.js';
 import { writeFileSync } from 'fs';
-
+import { getAuthCodeM, getAccessToken } from '../connections/fyers_connect.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({path: path.resolve(__dirname, '../../.env')});    // Load .env from the Root Directory
@@ -26,8 +26,12 @@ async function getProfileInfo(app_id, access_token, checker = false) {
         if(err.code == -8) {
             writeFileSync(accessTokenFilePath, '', 'utf8');
             writeFileSync(authCodeFilePath, '', 'utf8');
-            console.log("\nInvalid Access Token passed, cleared access token and auth code from cache please rerun the program\n");
-            process.exit(0);
+            console.log("\nInvalid Access Token passed, cleared access token and auth code from cache\n");
+            writeFileSync(authCodeFilePath, '', 'utf8');
+            writeFileSync(accessTokenFilePath, '', 'utf8');
+            console.log("generating new auth code...\n");
+            await getAuthCodeM(app_id);
+            await getAccessToken(app_id);
         }
         else if(err.code == -352) {
             console.error("\nInvalid App ID provided please check you app ID \n");
