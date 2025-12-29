@@ -1,6 +1,7 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Hello there from C++ side";
+    std::cout << "Hello World!";
+
     return 0;
 }
