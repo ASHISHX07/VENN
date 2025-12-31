@@ -14,7 +14,8 @@ console.log(`[LAUNCHER] Starting VENN System...`);
 // 1. Start Node.js FIRST (The Creator)
 console.log(`[LAUNCHER] -----> Launching Node Gateway (Creator)...`);
 const nodeProcess = spawn('node', [nodeGateway], { stdio: 'inherit' });
-
+console.log(`[LAUNCHER] -----> Launching Python Layer....`);
+const pyProcess = spawn('python', [pySrc], {stdio: 'inherit'});
 // 2. Wait 3 seconds for Node to create memory, then start C++
 setTimeout(() => {
     console.log(`[LAUNCHER] Launching C++ Core (Worker)...`);
