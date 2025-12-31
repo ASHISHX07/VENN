@@ -1,1 +1,1 @@
-do NOT touch this DIROCTORY unless you're SURE about changes you make as this might break up performance critical logic or introduce latency drops if used improperly
+do NOT touch this DIRECTORY unless you're SURE about changes you make as this might break up performance critical logic or introduce latency drops if done improperly
