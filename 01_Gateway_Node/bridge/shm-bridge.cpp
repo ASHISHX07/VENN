@@ -24,7 +24,7 @@ Napi::Value GetSharedBuffer(const Napi::CallbackInfo& info) {
         }
 
         // Map the memory into this process so we can touch it
-        if(g_region = nullptr) {
+        if(g_region == nullptr) {
             g_region = new mapped_region(*g_shm, read_write);
         }
 

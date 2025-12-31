@@ -27,11 +27,14 @@ int main() {
 
         // The Loop (Real-time Transfer)
         while(true) {
+            double last_ltp = 0;
             // READ from Node
             // Example: If Node updates the 'ltp'
-            if(data->ltp > 0) {
+            if(data->ltp != last_ltp && data->ltp > 0) {
                 // logic
-                std::cout << "Current LTP is: " << data->ltp << std::endl;
+                std::cout << "[CORE] Current LTP is: " << data->ltp << std::endl;
+
+                last_ltp = data->ltp;
             }
 
             // Write to node
