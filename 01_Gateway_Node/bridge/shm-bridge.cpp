@@ -1,8 +1,8 @@
 #include <napi.h>
+#include <iostream>
 // Boost interprocess headers
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
-#include <iostream>
 
 using namespace boost::interprocess;
 
